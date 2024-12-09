@@ -1,0 +1,20 @@
+name: Deploy Checks
+run-name: ${{ github.actor }} is Deploying Synthetics to Checkly
+on: [ push ]
+env:
+  CHECKLY_API_KEY: ${{ secrets.CHECKLY_API_KEY }}
+  CHECKLY_ACCOUNT_ID: ${{ secrets.CHECKLY_ACCOUNT_ID }}
+jobs:
+  Deploy_Checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Add Node to the Runner
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install Dependencies
+        run: npm ci
+      - name: Deploy Synthetics to Checkly
+        run: npx checkly deploy --force
