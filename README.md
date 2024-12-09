@@ -7,15 +7,18 @@ with [Github Actions](https://docs.github.com/en/actions) and a boilerplate proj
 ***
 1. If not done already clone this repository to your machine
 		``` git clone https://github.com/niiiiiicckkkkkk/checkly-starter-templ.git```
+
+		*** npm install will download dependencies
 2.  [Create a new Github Repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository) (required for Github Actions)
-3. In your new repository's settings, navigate to "Settings", "Secrets & Variables", "Actions", "New Repository Secret"
+3. In your new repository on the Github UI, navigate to "Settings", "Secrets & Variables", "Actions", "New Repository Secret"
 4. Generate a Checkly API key and save it as a [secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) called CHECKLY_API_KEY. Then follow the same process createing another secret for your Checkly account ID called CHECKLY_ACCOUNT_ID.
 	** click [here](https://www.checklyhq.com/docs/accounts-and-users/creating-api-key/) for help creating an API key and locating Account ID 
-5. Customize the alert channel with your email by completing the TODO on line 7 of ```alert-channels.ts```
+5. In your editor customize the alert channel with your email by completing the TODO on line 7 of ```alert-channels.ts```
 6. Push to the remote repository eg.
 	 ```bash
-	 git remote add <remote_name> <remote_url>
-	 git checkout -b trunk
+	 git remote add <remote_name> <your_new_repo_url>
+	 git add .
+	 git commit -m "customized template with my email"
 	 git push --set-upstream <remote_name> trunk
 	 ```
 7. That's it!! Try adding a check to the \_\_checks\_\_ directory. After pushing your code the new or updated check should appear in your Checkly dashboard and will notify you of any failures at your email address.
