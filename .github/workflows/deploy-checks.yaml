@@ -1,6 +1,10 @@
 name: Deploy Checks
+# an informative name that shows up in the Github Actions UI
 run-name: ${{ github.actor }} is Deploying Synthetics to Checkly
+# activate this workflow on a push
 on: [ push ]
+# setup the environment in the Github Actions runner for Checkly
+# API Key and Account ID are required to know that requests from the runner are authorized and point to the correct account
 env:
   CHECKLY_API_KEY: ${{ secrets.CHECKLY_API_KEY }}
   CHECKLY_ACCOUNT_ID: ${{ secrets.CHECKLY_ACCOUNT_ID }}
@@ -8,13 +12,16 @@ jobs:
   Deploy_Checks:
     runs-on: ubuntu-latest
     steps:
+      # Pull the repo to the runner
       - name: Check out repository code
         uses: actions/checkout@v4
+      # Download node to the runner
       - name: Add Node to the Runner
         uses: actions/setup-node@v4
         with:
           node-version: 18
       - name: Install Dependencies
         run: npm ci
+      # Run checkly CLI commands from the runner
       - name: Deploy Synthetics to Checkly
         run: npx checkly deploy --force
